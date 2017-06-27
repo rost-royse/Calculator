@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Styles/Css/style.css">
+    <script src="~/Scripts/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    
+    <div class="Calc"> 
+        <input type="text" name="display" class="display" id="inp"><br>
+        <button type="button" class="btn btnpink" id="ac">AC</button>
+        <button type="button" class="btn btnpink" id="pm" >+/-</button>
+        <button type="button" class="btn btnpink" id="pc" onclick="numberClick('%')">%</button>
+        <button type="button" class="btn btnorange" id="dv" onclick="numberClick('÷')">÷</button><br>
+        <button type="button" class="btn btnant" id="seven" onclick="numberClick(7)">7</button>
+        <button type="button" class="btn btnant" id="eight" onclick="numberClick(8)">8</button>
+        <button type="button" class="btn btnant" id="nine" onclick="numberClick(9)">9</button>
+        <button type="button" class="btn btnorange" id="mt" onclick="numberClick('x')">×</button><br>
+        <button type="button" class="btn btnant" id="four" onclick="numberClick(4)">4</button>
+        <button type="button" class="btn btnant" id="five" onclick="numberClick(5)">5</button>
+        <button type="button" class="btn btnant" id="six" onclick="numberClick(6)">6</button>
+        <button type="button" class="btn btnorange" id="sb" onclick="numberClick('-')">-</button><br>
+        <button type="button" class="btn btnant" id="one" onclick="numberClick(1)">1</button>
+        <button type="button" class="btn btnant" id="two" onclick="numberClick(2)">2</button>
+        <button type="button" class="btn btnant" id="three" onclick="numberClick(3)">3</button>
+        <button type="button" class="btn btnorange" id="plus" onclick="numberClick('+')">+</button><br>
+        <button type="button" class="btn0 btnant" id="null"onclick="numberClick(0)">0</button>
+        <button type="button" class="btn btnant" id="dot" onclick="numberClick('.')">.</button>
+        <button type="button" class="btn btnorange" id="eq" onclick="calc()">=</button>
+    </div>
+</body>
+</html>

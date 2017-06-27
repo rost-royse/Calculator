@@ -1,0 +1,42 @@
+﻿.Calc {
+    width: 300px;
+    height: 410px;
+}
+
+.display {
+    width: calc(100% - 4px);
+    height: 90px;
+    background-color: black;
+    color: white;
+    font-size: 200%;
+}
+
+
+.btn {
+    height: 62px;
+    width: 71.5px;
+    border: 1;
+}
+
+.btn0 {
+    width: 147px;
+    height: 62px;
+}
+
+.btnorange {
+    background-color: orange;
+    font-size: 150%;
+    color: white;
+}
+
+.btnant {
+    background-color: #FAEBD7;
+    font-size: 150%;
+    color: black;
+}
+
+.btnpink {
+    background-color: #FFB6C1;
+    font-size: 150%;
+    color: black;
+}
