@@ -5,13 +5,12 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace CalculatorASP.Controllers.API
+namespace CalculatorASP.Controllers
 {
     public class CalcController : ApiController
     {
-        [HttpGet]
         // GET api/<controller>
-        public IEnumerable<string> Calc()
+        public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
