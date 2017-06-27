@@ -1,16 +1,15 @@
-﻿
-function calc() {
-    document.getElementById("inp").value
+﻿function calc() {
     $.ajax({
         type: "POST",
-        url: 'localhost:5000/registrar',
-        data: {
-            "exp": document.getElementById("inp").value,
+        dataType: 'json',
+        contentType: 'application/json',
+        url: '/api/calc',
+        data: JSON.stringify({
+            "Input": document.getElementById("inp").value,
          
-        },
-        success: function () { $('#register').html('<h1>Login successfull</h1>'); },
-        error: function () { $('#register').html('<h1>Login error</h1>'); },
-        dataType: dataType
+        }),
+        success: function (data) { alert(data); },
+        error: function () { alert("error"); }
     });
 }
 

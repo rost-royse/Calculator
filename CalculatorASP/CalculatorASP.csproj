@@ -103,7 +103,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Scripts\script.js" />
-    <Content Include="Styles\Css\style.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
