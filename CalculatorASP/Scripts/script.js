@@ -8,7 +8,7 @@
             "Input": document.getElementById("inp").value,
          
         }),
-        success: function (data) { alert(data); },
+        success: function (data) { document.getElementById("inp").value = data; },
         error: function () { alert("error"); }
     });
 }
