@@ -33,4 +33,8 @@ function isInArray(value, array) {
     return array.indexOf(value) > -1;
 }
 
+function addPM() {
+    document.getElementById("inp").value = parseFloat(document.getElementById("inp").value) * -1;
+}
+
 var operations = ["+", "-", "*", "/"];
