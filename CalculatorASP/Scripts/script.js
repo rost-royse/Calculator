@@ -17,3 +17,6 @@ function numberClick(number) {
     document.getElementById("inp").value += number;
 }
 
+function clearInput() {
+    document.getElementById("inp").value = '';
+}
