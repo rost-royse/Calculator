@@ -1,4 +1,5 @@
-﻿function calc() {
+﻿var isFirst = true;
+function calc() {
     var input = document.getElementById("inp").value;
     if (isInArray(input.substr(input.length - 1), operations)) {
         input = input.slice(0, -1);
@@ -12,17 +13,25 @@
             "Input": input
         }),
         success: function(data) { document.getElementById("inp").value = data; },
-        error: function() { alert("error"); }
+        error: function() {
+            document.getElementById("inp").value = "ERROR";
+            isFirst = true;
+        }
     });
 }
 
 function numberClick(symbol) {
+    if (isFirst) {
+        document.getElementById("inp").value = "";
+        isFirst = false;
+    }
+
     var input = document.getElementById("inp").value;
     if (isInArray(symbol, operations) && isInArray(input.substr(input.length - 1), operations)) {
-        return;
-    } else {
-        document.getElementById("inp").value += symbol;
+        input = input.substring(0, input.length - 1);
     }
+    input += symbol;
+    document.getElementById("inp").value = input;
 }
 
 function clearInput() {

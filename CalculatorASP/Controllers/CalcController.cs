@@ -6,15 +6,13 @@ namespace CalculatorASP.Controllers
 {
     public class CalcController : ApiController
     {
-        // POST api/<controller>
         public double Post([FromBody] Expression exp)
         {
-            var output = GetExpression(exp.Input); //Преобразовываем выражение в постфиксную запись
-            var result = Counting(output); //Решаем полученное выражение
-            return result; //Возвращаем результат
+            var output = GetExpression(exp.Input);     
+            var result = Counting(output);   
+            return result;  
         }
 
-        //Метод возвращает true, если проверяемый символ - разделитель ("пробел" или "равно")
         private bool IsDelimeter(char c)
         {
             if (" =".IndexOf(c) != -1)
@@ -22,7 +20,6 @@ namespace CalculatorASP.Controllers
             return false;
         }
 
-        //Метод возвращает true, если проверяемый символ - оператор
         private static bool IsOperator(char с)
         {
             if ("+-/*^()".IndexOf(с) != -1)
@@ -30,7 +27,6 @@ namespace CalculatorASP.Controllers
             return false;
         }
 
-        //Метод возвращает приоритет оператора
         private static byte GetPriority(char s)
         {
             switch (s)
@@ -48,31 +44,29 @@ namespace CalculatorASP.Controllers
 
         private double Counting(string input)
         {
-            double result = 0; //Результат
-            var temp = new Stack<double>(); //Dhtvtyysq стек для решения
+            double result = 0; 
+            var temp = new Stack<double>();    
 
-            for (var i = 0; i < input.Length; i++) //Для каждого символа в строке
-                //Если символ - цифра, то читаем все число и записываем на вершину стека
+            for (var i = 0; i < input.Length; i++)     
                 if (char.IsDigit(input[i]))
                 {
                     var a = string.Empty;
 
-                    while (!IsDelimeter(input[i]) && !IsOperator(input[i])) //Пока не разделитель
+                    while (!IsDelimeter(input[i]) && !IsOperator(input[i]))   
                     {
-                        a += input[i]; //Добавляем
+                        a += input[i]; 
                         i++;
                         if (i == input.Length) break;
                     }
-                    temp.Push(double.Parse(a)); //Записываем в стек
+                    temp.Push(double.Parse(a));   
                     i--;
                 }
-                else if (IsOperator(input[i])) //Если символ - оператор
+                else if (IsOperator(input[i]))    
                 {
-                    //Берем два последних значения из стека
                     var a = temp.Pop();
                     var b = temp.Pop();
 
-                    switch (input[i]) //И производим над ними действие, согласно оператору
+                    switch (input[i])       
                     {
                         case '+':
                             result = b + a;
@@ -91,47 +85,42 @@ namespace CalculatorASP.Controllers
                                 .ToString());
                             break;
                     }
-                    temp.Push(result); //Результат вычисления записываем обратно в стек
+                    temp.Push(result);      
                 }
-            return temp.Peek(); //Забираем результат всех вычислений из стека и возвращаем его
+            return temp.Peek();         
         }
 
         private string GetExpression(string input)
         {
-            var output = string.Empty; //Строка для хранения выражения
-            var operStack = new Stack<char>(); //Стек для хранения операторов
+            var output = string.Empty;    
+            var operStack = new Stack<char>();    
 
-            for (var i = 0; i < input.Length; i++) //Для каждого символа в входной строке
+            for (var i = 0; i < input.Length; i++)      
             {
-                //Разделители пропускаем
                 if (IsDelimeter(input[i]))
-                    continue; //Переходим к следующему символу
+                    continue;    
 
-                //Если символ - цифра, то считываем все число
-                if (char.IsDigit(input[i])) //Если цифра
+                if (char.IsDigit(input[i]))  
                 {
-                    //Читаем до разделителя или оператора, что бы получить число
                     while (!IsDelimeter(input[i]) && !IsOperator(input[i]))
                     {
-                        output += input[i]; //Добавляем каждую цифру числа к нашей строке
-                        i++; //Переходим к следующему символу
+                        output += input[i];       
+                        i++;    
 
-                        if (i == input.Length) break; //Если символ - последний, то выходим из цикла
+                        if (i == input.Length) break;        
                     }
 
-                    output += " "; //Дописываем после числа пробел в строку с выражением
-                    i--; //Возвращаемся на один символ назад, к символу перед разделителем
+                    output += " ";        
+                    i--;         
                 }
 
-                //Если символ - оператор
-                if (IsOperator(input[i])) //Если оператор
-                    if (input[i] == '(') //Если символ - открывающая скобка
+                if (IsOperator(input[i]))  
+                    if (input[i] == '(')     
                     {
-                        operStack.Push(input[i]); //Записываем её в стек
+                        operStack.Push(input[i]);    
                     }
-                    else if (input[i] == ')') //Если символ - закрывающая скобка
+                    else if (input[i] == ')')     
                     {
-                        //Выписываем все операторы до открывающей скобки в строку
                         var s = operStack.Pop();
 
                         while (s != '(')
@@ -140,24 +129,23 @@ namespace CalculatorASP.Controllers
                             s = operStack.Pop();
                         }
                     }
-                    else //Если любой другой оператор
+                    else    
                     {
-                        if (operStack.Count > 0) //Если в стеке есть элементы
+                        if (operStack.Count > 0)     
                             if (GetPriority(input[i]) <= GetPriority(operStack.Peek())
-                            ) //И если приоритет нашего оператора меньше или равен приоритету оператора на вершине стека
+                            )             
                                 output += operStack.Pop() +
-                                          " "; //То добавляем последний оператор из стека в строку с выражением
+                                          " ";          
 
                         operStack.Push(char.Parse(input[i]
-                            .ToString())); //Если стек пуст, или же приоритет оператора выше - добавляем операторов на вершину стека
+                            .ToString()));              
                     }
             }
 
-            //Когда прошли по всем символам, выкидываем из стека все оставшиеся там операторы в строку
             while (operStack.Count > 0)
                 output += operStack.Pop() + " ";
 
-            return output; //Возвращаем выражение в постфиксной записи
+            return output;     
         }
     }
 
