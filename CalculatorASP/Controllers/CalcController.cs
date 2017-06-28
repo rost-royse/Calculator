@@ -10,7 +10,7 @@ namespace CalculatorASP.Controllers
         // POST api/<controller>
         public decimal Post([FromBody]Expression exp)
         {
-            string thisexp = Convert.ToString(exp);
+            string thisexp = exp.Input;
             string[] stringmass = thisexp.Split('+', '-', '÷', 'x');
             List < decimal > numbers= new List<decimal>();
             foreach (var elements in stringmass)
